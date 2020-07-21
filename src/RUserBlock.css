@@ -1,0 +1,78 @@
+
+.RUserBlock > .Input {
+    font-size: 1vw;
+    padding: 0 0 0 1vw;
+    width: 15.9vw;
+    border: 0.05vw solid rgba(255, 255, 255, 0.08);
+    outline-style: none;
+    color: rgb(230, 230, 230);
+    background-color: rgb(40, 44, 52);
+    display: block;
+    height: 2vw;
+}
+.RUserBlock > .Input[type="password"],
+.RUserBlock > #nameSignUp {
+    border-top: none;
+}
+
+.RUserBlock > .LoginButton,
+.RUserBlock > .SignUpButton {
+    height: 2vw;
+    color: rgb(150, 150, 150);
+    background-color: rgba(44, 49, 58, 1);
+}
+.RUserBlock > .SignUpInfo,
+.RUserBlock > #CheckInfo {
+    margin: 0.5vw 0;
+    height: 1vw;
+    font-size: 0.8vw;
+    color: rgb(100, 100, 100);
+}
+.RUserBlock > .SignUpInfo:hover {
+    color: rgb(150, 150, 150);
+}
+.RUserBlock > .LogoutButton {
+    height: 2vw;
+    color: rgb(150, 150, 150);
+    background-color: rgb(145, 62, 62);
+}
+.RUserBlock > .LoginButton:hover,
+.RUserBlock > .SignUpButton:hover {
+    color: rgb(230, 230, 230);
+    background-color: rgb(88, 134, 233);
+}
+.RUserBlock > .LogoutButton:hover {
+    color: rgb(230, 230, 230);
+    background-color: rgb(233, 88, 88);
+}
+
+.RUserBlock > .Top1Text {
+    font-size: 0.9vw;
+    height: 1.5vw;
+    background-color: rgb(40, 44, 52);
+}
+.RUserBlock > .RenderItem {
+    font-size: 0.9vw;
+    color: rgb(150, 150, 150);
+    background-color: rgb(40, 44, 52);
+}
+.RUserBlock > .RenderItem > .Text {
+    line-height: 1.5vw;
+    display: inline;
+}
+.RUserBlock > .Top0Text > .Text {
+    display: inline;
+    line-height: 2vw;
+    color: rgb(100, 100, 100);
+}
+.RUserBlock > .Top1Text > .Text {
+    font-size: 0.9vw;
+    display: inline;
+    line-height: 1.5vw;
+    color: rgb(100, 100, 100);
+}
+.RUserBlock > .Top1Text > .C0 {
+    float: left;
+    text-align: left;
+    padding-left: 1vw;
+}

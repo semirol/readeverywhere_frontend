@@ -1,0 +1,62 @@
+.RFileManager{
+    cursor: default;
+}
+
+.RFileManager > .Top0Text {
+    height: 2vw;
+    background-color: rgb(33, 37, 43);
+}
+.RFileManager > .Top1Text {
+    height: 1.5vw;
+    background-color: rgb(40, 44, 52);
+}
+.RFileManager > .RenderItem {
+    height: 1.5vw;
+    font-size: 0.9vw;
+}
+.RFileManager > .RenderItem:hover,
+.RFileManager > .RenderItem[highlight='true'] {
+    background-color: rgba(44, 49, 58, 1);
+}
+.RFileManager > .RenderItem > .Text {
+    display: inline-block;
+    height: 1.5vw;
+}
+.RFileManager > .RenderItem > .RenderButtonX{
+    float: left;
+    visibility: hidden;
+    width: 2vw;
+}
+.RFileManager > .RenderItem:hover > .RenderButtonX,
+.RFileManager > .RenderItem[highlight='true'] > .RenderButtonX {
+    visibility: visible;
+}
+.RFileManager > .RenderItem > .RenderButton{
+    float: left;
+    text-align: left;
+    width: 14vw;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.RFileManager > .Top0Text > .Text {
+    display: inline;
+    line-height: 2vw;
+    color: rgb(100, 100, 100);
+}
+.RFileManager > .Top1Text > .Text {
+    font-size: 0.9vw;
+    display: inline;
+    line-height: 1.5vw;
+    color: rgb(100, 100, 100);
+}
+.RFileManager > .Top1Text > .C0 {
+    float: left;
+    text-align: left;
+    padding-left: 1vw;
+}
+.RFileManager > #OnlineFiles > .Refresh {
+    float: right;
+    width: 1.5vw;
+    color: rgb(230, 230, 230);
+    background-color: rgb(255, 255, 255, 0.04);
+}

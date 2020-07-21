@@ -1,0 +1,41 @@
+.RFileTree {
+    font-size: 0.9vw;
+    border-left: 0.05vw solid #37363b;
+    margin-left: 0.3vw;
+    /* padding-left: 0.3vw; */
+    background-color: rgb(33, 37, 43);
+    text-align: left;
+}
+.RFileTree .ButtonContainer {
+    height: 1.5vw;
+}
+.RFileTree .ButtonContainer:hover {
+    background-color: rgba(44, 49, 58, 1);
+}
+
+.RFileTree > .ButtonContainer > .Button,
+.RFileTree > .ButtonContainer > .AddButton {
+    display: inline-block;
+    height: 1.5vw;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.RFileTree > .ButtonContainer > .Button {
+    padding-left: 2%;
+    width: 83%;
+}
+.RFileTree > .ButtonContainer > .AddButton {
+    float: right;
+    width: 1.5vw;
+    text-align: center;
+}
+
+.RFileTree > .ButtonContainer > .AddButton > input {
+    float: left;
+    width: 1.5vw;
+    opacity: 0.1;
+    height: 1.5vw;
+}
+.RFileTree > .ButtonContainer > .AddButton > div {
+    height: 1.5vw;
+}

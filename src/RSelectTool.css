@@ -1,0 +1,22 @@
+.RSelectTool {
+    height: 100vh;
+    background-color: rgb(40, 44, 52);
+    position: relative;
+}
+
+.RSelectTool .Item {
+    height: 3vw;
+    color: rgba(255, 255, 255, 0.08);
+    background-color: rgb(40, 44, 52);
+}
+
+.RSelectTool .Zen {
+    height: 3vw;
+    color: rgb(111, 146, 218);
+    background-color: rgb(45, 75, 134);
+}
+
+.RSelectTool .Item:hover, .RSelectTool .Item[highlight='true'] {
+    color: rgb(230, 230, 230);
+}
+

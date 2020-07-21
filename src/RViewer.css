@@ -1,0 +1,61 @@
+.RViewer {
+    height: 100vh;
+    background-color: rgb(40, 44, 52);
+}
+
+.RViewer iframe {
+    border: 0px;
+    height: calc(100vh - 2vw);
+}
+
+.RViewer .TopBar {
+    height: 2vw;
+    text-align: left;
+    background-color: rgb(33, 37, 43);
+    font-size: 0.9vw;
+}
+
+.RViewer > .TopBar > .TopButton {
+    width: 15vw;
+    height: 2vw;
+    border-right: 0.05vw solid rgb(0, 0, 0);
+    display: inline-block;
+}
+
+.RViewer > .TopBar > .TopButton[highlight='true'] {
+    background-color: rgb(40, 44, 52);
+}
+.RViewer > .TopBar > .TopButton:hover {
+    background-color: rgba(44, 49, 58, 1);
+}
+.RViewer > .TopBar > .TopButton> .RenderButton,
+.RViewer > .TopBar > .TopButton> .RenderButtonX{
+    padding-top: 0.3vw;
+    color: rgb(100, 100, 100);
+    height: 1.7vw;
+    display: inline-block;
+}
+.RViewer > .TopBar > .TopButton[highlight='true'] > *{
+    color: rgb(150, 150, 150);
+}
+.RViewer > .TopBar > .TopButton> .RenderButton {
+    padding-left: 0.8vw;
+    width: 90%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.RViewer > .TopBar > .TopButton> .RenderButtonX {
+    padding-right: 0.7vw;
+    float: right;
+    visibility: hidden;
+}
+.RViewer > .TopBar > .TopButton:hover > .RenderButton,
+.RViewer > .TopBar > .TopButton[highlight='true'] > .RenderButton {
+    width: 85%;
+}
+
+.RViewer > .TopBar > .TopButton:hover > .RenderButtonX,
+.RViewer > .TopBar > .TopButton[highlight='true'] > .RenderButtonX {
+    visibility: visible;
+}

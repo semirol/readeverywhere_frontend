@@ -1,0 +1,11 @@
+.RInfoTool {
+    height:100vh;
+    width: 17vw;
+    color: rgb(230, 230, 230);
+    background-color: rgb(33, 37, 43);
+}
+
+
+.RInfoTool .IfDisplay[ifdisplay='false'] {
+    display: none;
+}
