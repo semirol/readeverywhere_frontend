@@ -11,7 +11,8 @@
     height: 2vw;
 }
 .RUserBlock > .Input[type="password"],
-.RUserBlock > #nameSignUp {
+.RUserBlock > #nameSignUp,
+.RUserBlock > #invCodeSignUp {
     border-top: none;
 }
 

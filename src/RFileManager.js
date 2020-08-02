@@ -41,7 +41,8 @@ class RFileManager extends React.Component{
                     <div className="C0 Text">ONLINE FILES</div>
                     <div className="Refresh Text" onClick={this.props.loadPathTree}>刷</div>
                 </div>
-                <RFileTree pathTree={this.props.pathTree} loadPdf={this.props.loadPdf} uploadFile={this.props.uploadFile}/>
+                <RFileTree pathTree={this.props.pathTree} loadPdf={this.props.loadPdf} 
+                uploadFile={this.props.uploadFile} deleteFile={this.props.deleteFile}/>
             </div>
         );
     }

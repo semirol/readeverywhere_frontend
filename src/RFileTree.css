@@ -14,7 +14,9 @@
 }
 
 .RFileTree > .ButtonContainer > .Button,
-.RFileTree > .ButtonContainer > .AddButton {
+.RFileTree > .ButtonContainer > .AddButton,
+.RFileTree > .ButtonContainer > .DelButton 
+{
     display: inline-block;
     height: 1.5vw;
     text-overflow: ellipsis;
@@ -22,20 +24,26 @@
 }
 .RFileTree > .ButtonContainer > .Button {
     padding-left: 2%;
-    width: 83%;
+    width: 70%;
 }
-.RFileTree > .ButtonContainer > .AddButton {
+.RFileTree > .ButtonContainer > .AddButton,
+.RFileTree > .ButtonContainer > .DelButton
+{
     float: right;
     width: 1.5vw;
     text-align: center;
 }
 
-.RFileTree > .ButtonContainer > .AddButton > input {
+.RFileTree > .ButtonContainer > .AddButton > input,
+.RFileTree > .ButtonContainer > .DelButton > input
+{
     float: left;
     width: 1.5vw;
     opacity: 0.1;
     height: 1.5vw;
 }
-.RFileTree > .ButtonContainer > .AddButton > div {
+.RFileTree > .ButtonContainer > .AddButton > div,
+.RFileTree > .ButtonContainer > .DelButton > div 
+{
     height: 1.5vw;
 }

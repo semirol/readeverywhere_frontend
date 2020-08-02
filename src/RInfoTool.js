@@ -18,7 +18,8 @@ class RInfoTool extends React.Component{
                 <div className="IfDisplay" ifdisplay={this.props.selectToolIndex==1?'true':'false'}>
                     <RFileManager loadPdf={this.props.loadPdf} changeIndex={this.props.changeIndex}
                     deletePdf={this.props.deletePdf} viewerPath={this.props.viewerPath} index={this.props.index}
-                    pathTree={this.props.pathTree} loadPathTree={this.props.loadPathTree} uploadFile={this.props.uploadFile}/>
+                    pathTree={this.props.pathTree} loadPathTree={this.props.loadPathTree} 
+                    uploadFile={this.props.uploadFile} deleteFile={this.props.deleteFile}/>
                 </div>
                 <div className="IfDisplay" ifdisplay={this.props.selectToolIndex==2?'true':'false'}>
                     <RSettingBlock/>

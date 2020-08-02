@@ -18,11 +18,12 @@ class App extends React.Component{
     }catch(e){
       console.log(e);
     }
+    const userEmail = Cookies.get("userEmail");
     this.state = {
       viewerPath: tmp,
       pathTree: {},
       index: 0,
-      selectToolIndex: 1,
+      selectToolIndex: (userEmail===''||!userEmail)? 0:1,
       uploadFilePath: "",
     };
     this.loadPdf = this.loadPdf.bind(this);
@@ -32,6 +33,7 @@ class App extends React.Component{
     this.changeIndex = this.changeIndex.bind(this);
     this.changeSelectToolIndex = this.changeSelectToolIndex.bind(this);
     this.uploadFile = this.uploadFile.bind(this);
+    this.deleteFile = this.deleteFile.bind(this);
     this.handleChangeUploadFile = this.handleChangeUploadFile.bind(this);
   }
   componentDidMount(){
@@ -64,8 +66,10 @@ class App extends React.Component{
     })
     .then(function (response) {
         if (response.data.status==='true'){
-          // _this.setState({pathTree: response.data.data});
-          alert(response.data);
+          _this.loadPathTree();
+        }
+        else if (response.data.status==='noEnoughSpace'){
+          alert('可用空间不足');
         }
         else{
             alert('上传文件失败');
@@ -77,6 +81,36 @@ class App extends React.Component{
   }
   uploadFile(path){
     this.setState({uploadFilePath: path});
+  }
+  deleteFile(path){
+    let token = Cookies.get("token");
+    if (!token||token===""){
+      alert("token失效，重新登录");
+      return;
+    }
+    let _this = this;
+    axios({
+      method: 'post',
+      url: 'http://127.0.0.1:8080/deletePdfOrDir',
+      data: Qs.stringify({
+        path,
+      }),
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'token': token,
+      },
+    })
+    .then(function (response) {
+        if (response.data.status=='true'){
+          _this.loadPathTree();
+        }
+        else{
+            alert('删除文件失败');
+        } 
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
   }
   loadPdf(path){
     this.state.viewerPath.push([path,new Date().getTime()]);
@@ -132,7 +166,7 @@ class App extends React.Component{
           _this.setState({pathTree: JSON.parse(response.data.data)});
         }
         else{
-          alert("获取pathtree失败");
+          alert("获取pathtree失败,请尝试重新登录");
         }
       })
       .catch(function (error) {
@@ -155,7 +189,8 @@ class App extends React.Component{
           <RInfoTool loadPathTree={this.loadPathTree} deletePdfAll={this.deletePdfAll}
           loadPdf={this.loadPdf} changeIndex={this.changeIndex} index={this.state.index}
           deletePdf={this.deletePdf} viewerPath={this.state.viewerPath}
-          pathTree={this.state.pathTree} selectToolIndex={this.state.selectToolIndex} uploadFile={this.uploadFile}/>
+          pathTree={this.state.pathTree} selectToolIndex={this.state.selectToolIndex} 
+          uploadFile={this.uploadFile} deleteFile={this.deleteFile}/>
         </div>
         <div id="Main2Grid">
           <RViewer viewerPath={this.state.viewerPath} index={this.state.index} 

@@ -9,15 +9,20 @@ class RUserBlock extends React.Component{
     constructor(props) {
         super(props);
         const userEmail = Cookies.get('userEmail');
+        const usedSpace = Cookies.get('usedSpace');
+        const totalSpace = Cookies.get('totalSpace');
         // const token = Cookies.get('token');
         this.state = {
             email: "350395090@qq.com",
             password: "jlccdsw1",
             userEmail,
+            usedSpace,
+            totalSpace,
             display: userEmail?0:1,
             signUp: 0,
             emailSignUp: "",
             nameSignUp: "",
+            invCodeSignUp: "",
             passwordSignUp: "",
             ifcheck: 0,
         };
@@ -25,6 +30,7 @@ class RUserBlock extends React.Component{
         this.handleChangePassword = this.handleChangePassword.bind(this);
         this.handleChangeEmailSignUp = this.handleChangeEmailSignUp.bind(this);
         this.handleChangeNameSignUp = this.handleChangeNameSignUp.bind(this);
+        this.handleChangeInvCodeSignUp = this.handleChangeInvCodeSignUp.bind(this);
         this.handleChangePasswordSignUp = this.handleChangePasswordSignUp.bind(this);
         this.handleClickLogin = this.handleClickLogin.bind(this);
         this.handleClickLogout = this.handleClickLogout.bind(this);
@@ -42,6 +48,9 @@ class RUserBlock extends React.Component{
     }
     handleChangeNameSignUp(event){
         this.setState({nameSignUp: event.target.value});
+    }
+    handleChangeInvCodeSignUp(event){
+        this.setState({invCodeSignUp: event.target.value});
     }
     handleChangePasswordSignUp(event){
         this.setState({passwordSignUp: event.target.value});
@@ -68,6 +77,7 @@ class RUserBlock extends React.Component{
                 email:_this.state.emailSignUp,
                 name:_this.state.nameSignUp,
                 password:_this.state.passwordSignUp,
+                invCode:_this.state.invCodeSignUp,
             }),
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -81,6 +91,9 @@ class RUserBlock extends React.Component{
             }
             else if (response.data.status==='wait'){
                 alert("60秒内进行过注册操作，请查看邮箱");
+            }
+            else if (response.data.status==='invCodeError'){
+                alert("邀请码错误");
             }
             else{
                 alert('注册失败');
@@ -107,9 +120,13 @@ class RUserBlock extends React.Component{
             if (response.data.status==='true'){
                 _this.setState({
                     userEmail: response.data.user.email,
+                    usedSpace: response.data.user.usedSpace,
+                    totalSpace: response.data.user.totalSpace,
                     display: 0,
                 });
                 Cookies.set('token',response.data.token);
+                Cookies.set('usedSpace',response.data.user.usedSpace);
+                Cookies.set('totalSpace',response.data.user.totalSpace);
                 Cookies.set('userEmail',response.data.user.email);
                 _this.props.loadPathTree();
             }
@@ -140,6 +157,8 @@ class RUserBlock extends React.Component{
         } 
         Cookies.set('token','');
         Cookies.set('userEmail','');
+        Cookies.set('usedSpace','');
+        Cookies.set('totalSpace','');
         Cookies.set('viewerPath','');
         this.setState({display: 1});
         this.props.loadPathTree();
@@ -168,6 +187,8 @@ class RUserBlock extends React.Component{
                     onChange={this.handleChangeEmailSignUp}/>
                 <input id = "nameSignUp" className="Input" type="text" placeHolder="name" value={this.state.nameSignUp} 
                     onChange={this.handleChangeNameSignUp}/>
+                <input id = "invCodeSignUp" className="Input" type="text" placeHolder="invitation code" value={this.state.invCodeSignUp} 
+                    onChange={this.handleChangeInvCodeSignUp}/>
                 <input className="Input" type="password" placeHolder="password" value={this.state.passwordSignUp} 
                     onChange={this.handleChangePasswordSignUp}/>
                 <div className="SignUpButton Button" onClick={this.doSignUp}>注册</div>
@@ -178,7 +199,7 @@ class RUserBlock extends React.Component{
             renderItem = (
                 <div className="RenderItem">
                     <div className="Text">邮箱: {this.state.userEmail}</div><br/>
-                    <div className="Text">容量使用情况: 3M/100M</div>
+                    <div className="Text">容量使用情况: {(parseInt(this.state.usedSpace)/1024).toFixed(1)}MB/{(parseInt(this.state.totalSpace)/1024).toFixed(1)}MB</div>
                 </div>
             );
             renderItem1 = <div className="LogoutButton Button" onClick={this.handleClickLogout}>登出</div>;
