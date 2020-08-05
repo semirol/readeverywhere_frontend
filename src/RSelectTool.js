@@ -34,8 +34,8 @@ class RSelectTool extends React.Component{
                 onClick={()=>this.props.changeSelectToolIndex(0)}>用户</div>
                 <div className="File Item" highlight={this.props.selectToolIndex==1?'true':'false'} 
                 onClick={()=>this.props.changeSelectToolIndex(1)}>文件</div>
-                <div className="Setting Item" highlight={this.props.selectToolIndex==2?'true':'false'} 
-                onClick={()=>this.props.changeSelectToolIndex(2)}>设置</div>
+                {/* <div className="Setting Item" highlight={this.props.selectToolIndex==2?'true':'false'} 
+                onClick={()=>this.props.changeSelectToolIndex(2)}>设置</div> */}
                 <div className="Zen Item" highlight={this.props.selectToolIndex==3?'true':'false'} 
                 onClick={()=>this.toggleFullScreen()}>禅</div>
             </div>

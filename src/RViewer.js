@@ -23,7 +23,7 @@ class RViewer extends React.Component{
             renderButton = this.props.viewerPath.map(
                 (item,index) => (
                     <div key={'rb'+item[0]+item[1]} className="TopButton" highlight={this.props.index==index?'true':'false'}>
-                        <div key={'vb0'+item[0]+item[1]} className="RenderButton" onClick={()=>this.handleclick0(index)}>{item[0]}</div>
+                        <div key={'vb0'+item[0]+item[1]} className="RenderButton" onClick={()=>this.handleclick0(index)}>{item[0].split('/').pop()}</div>
                         <div key={'vb1'+item[0]+item[1]} className="RenderButtonX" onClick={()=>this.handleclick1(item[0],item[1])}>×</div>
                     </div>
                 )

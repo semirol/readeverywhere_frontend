@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Qs from 'qs';
 import Cookies from 'js-cookie';
+import { myAlert } from './RScripts';
 
 import './RUserBlock.css';
 
@@ -13,8 +14,8 @@ class RUserBlock extends React.Component{
         const totalSpace = Cookies.get('totalSpace');
         // const token = Cookies.get('token');
         this.state = {
-            email: "350395090@qq.com",
-            password: "jlccdsw1",
+            email: "",
+            password: "",
             userEmail,
             usedSpace,
             totalSpace,
@@ -24,7 +25,6 @@ class RUserBlock extends React.Component{
             nameSignUp: "",
             invCodeSignUp: "",
             passwordSignUp: "",
-            ifcheck: 0,
         };
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
@@ -35,6 +35,7 @@ class RUserBlock extends React.Component{
         this.handleClickLogin = this.handleClickLogin.bind(this);
         this.handleClickLogout = this.handleClickLogout.bind(this);
         this.handleClickSignUp = this.handleClickSignUp.bind(this);
+        this.handleClickRefreshInfo = this.handleClickRefreshInfo.bind(this);
         this.doSignUp = this.doSignUp.bind(this);
     }
     handleChangeEmail(event){
@@ -64,10 +65,45 @@ class RUserBlock extends React.Component{
     handleClickLogout(){
         this.doLogout();
     }
+    handleClickRefreshInfo(){
+        let _this = this;
+        let token = Cookies.get("token");
+        if (token!==''&&token){
+            axios({
+              method: 'post',
+              url: 'http://127.0.0.1:8080/getUserInfo',
+              headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded',
+                  'token':token,
+              },
+            })
+            .then(function (response) {
+              if (response.data.status==="true"){
+                _this.setState({
+                    userEmail: response.data.user.email,
+                    usedSpace: response.data.user.usedSpace,
+                    totalSpace: response.data.user.totalSpace,
+                });
+                Cookies.set('usedSpace',response.data.user.usedSpace);
+                Cookies.set('totalSpace',response.data.user.totalSpace);
+                Cookies.set('userEmail',response.data.user.email);
+              }
+              else{
+                myAlert("刷新失败");
+              }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        }
+        else{
+            myAlert("token失效");
+        }
+    }
     doSignUp(){
         const _this = this;
         if (_this.state.passwordSignUp.length<8){
-            alert("密码长度不能小于8位");
+            myAlert("密码长度不能小于8位");
             return;
         }
         axios({
@@ -85,18 +121,16 @@ class RUserBlock extends React.Component{
         })
         .then(function (response) {
             if (response.data.status==='true'){
-                _this.setState({
-                    ifcheck: 1,
-                });
+                myAlert("邮件已发送，请查看邮箱并点击验证连接，验证后返回此页面进行登录。")
             }
             else if (response.data.status==='wait'){
-                alert("60秒内进行过注册操作，请查看邮箱");
+                myAlert("60秒内进行过注册操作，请查看邮箱");
             }
             else if (response.data.status==='invCodeError'){
-                alert("邀请码错误");
+                myAlert("邀请码错误");
             }
             else{
-                alert('注册失败');
+                myAlert('注册失败');
             } 
         })
         .catch(function (error) {
@@ -131,7 +165,7 @@ class RUserBlock extends React.Component{
                 _this.props.loadPathTree();
             }
             else{
-                alert('登录失败');
+                myAlert('登录失败');
             } 
         })
         .catch(function (error) {
@@ -168,12 +202,11 @@ class RUserBlock extends React.Component{
         let renderItem;
         let renderItem1;
         let renderItem2;
-        let renderItem3;
         if (this.state.display===1){
             renderItem = (
                 <>
                     <input className="Input" type="text" placeholder="email" value={this.state.email} 
-                        onChange={this.handleChangeName}/>
+                        onChange={this.handleChangeEmail}/>
                     <input className="Input" type="password" placeholder="password" value={this.state.password} 
                         onChange={this.handleChangePassword}/>
                 </>
@@ -193,7 +226,6 @@ class RUserBlock extends React.Component{
                     onChange={this.handleChangePasswordSignUp}/>
                 <div className="SignUpButton Button" onClick={this.doSignUp}>注册</div>
             </>;
-            renderItem3 = <div id="CheckInfo" className="Text">邮件已发送，请查看邮箱并点击验证连接，验证后返回此页面进行登录。</div>;
         }
         else{
             renderItem = (
@@ -210,7 +242,8 @@ class RUserBlock extends React.Component{
                     <div className="Text">USER</div>
                 </div>
                 <div className="Top1Text">
-                    <div className="Text C0">INFOMATION</div>
+                    <div className="Information Text C0">INFORMATION</div>
+                    {this.state.display!==1?<div className="Refresh Text" onClick={this.handleClickRefreshInfo}>刷</div>:null}
                 </div>
                 {renderItem}
                 <div className="Top1Text">
@@ -218,7 +251,6 @@ class RUserBlock extends React.Component{
                 </div>
                 {renderItem1}
                 {this.state.signUp==1?renderItem2:null}
-                {this.state.ifcheck==1&&this.state.signUp==1?renderItem3:null}
             </div>
         );
     }

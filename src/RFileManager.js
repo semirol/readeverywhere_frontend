@@ -22,8 +22,8 @@ class RFileManager extends React.Component{
                         <div key={'fb1'+item[0]+item[1]} className="RenderButtonX Text" onClick={()=>this.handleclick1(item[0],item[1])}>
                             ×
                         </div>
-                        <div key={'fb0'+item[0]+item[1]} className="RenderButton Text" onClick={()=>this.handleclick0(index)}>
-                            {item[0]}
+                        <div title={item[0]} key={'fb0'+item[0]+item[1]} className="RenderButton Text" onClick={()=>this.handleclick0(index)}>
+                            {item[0].split('/').slice(1).join('/')}
                         </div>
                     </div>                
                 )
@@ -42,7 +42,8 @@ class RFileManager extends React.Component{
                     <div className="Refresh Text" onClick={this.props.loadPathTree}>刷</div>
                 </div>
                 <RFileTree pathTree={this.props.pathTree} loadPdf={this.props.loadPdf} 
-                uploadFile={this.props.uploadFile} deleteFile={this.props.deleteFile}/>
+                uploadFile={this.props.uploadFile} deleteFile={this.props.deleteFile}
+                newDir={this.props.newDir} isRoot="true"/>
             </div>
         );
     }

@@ -77,3 +77,10 @@
     text-align: left;
     padding-left: 1vw;
 }
+
+.RUserBlock > .Top1Text > .Refresh {
+    float: right;
+    width: 1.5vw;
+    color: rgb(230, 230, 230);
+    background-color: rgb(255, 255, 255, 0.04);
+}

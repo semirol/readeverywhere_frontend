@@ -23,8 +23,8 @@
     white-space: nowrap;
 }
 .RFileTree > .ButtonContainer > .Button {
+    display: block;
     padding-left: 2%;
-    width: 70%;
 }
 .RFileTree > .ButtonContainer > .AddButton,
 .RFileTree > .ButtonContainer > .DelButton

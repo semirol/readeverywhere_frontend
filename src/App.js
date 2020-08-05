@@ -5,9 +5,11 @@ import Qs from 'qs';
 import { RViewer } from './RViewer';
 import { RSelectTool } from './RSelectTool';
 import { RInfoTool } from './RInfoTool';
+import { RAlertBlock } from './RAlertBlock';
 
 
 import './App.css';
+import { myAlert } from './RScripts';
 
 class App extends React.Component{
   constructor(props){
@@ -25,6 +27,8 @@ class App extends React.Component{
       index: 0,
       selectToolIndex: (userEmail===''||!userEmail)? 0:1,
       uploadFilePath: "",
+      rAlertBlockDisplay: 0,
+      newDirPath: "",
     };
     this.loadPdf = this.loadPdf.bind(this);
     this.loadPathTree = this.loadPathTree.bind(this);
@@ -34,7 +38,9 @@ class App extends React.Component{
     this.changeSelectToolIndex = this.changeSelectToolIndex.bind(this);
     this.uploadFile = this.uploadFile.bind(this);
     this.deleteFile = this.deleteFile.bind(this);
+    this.newDir = this.newDir.bind(this);
     this.handleChangeUploadFile = this.handleChangeUploadFile.bind(this);
+    this.changeRAlertBlockDisplay = this.changeRAlertBlockDisplay.bind(this);
   }
   componentDidMount(){
     this.loadPathTree();
@@ -52,7 +58,7 @@ class App extends React.Component{
     formData.append("path",_this.state.uploadFilePath);
     let token = Cookies.get("token");
     if (!token||token===""){
-      alert("token失效，重新登录");
+      myAlert("token失效，重新登录");
       return;
     }
     axios({
@@ -69,10 +75,10 @@ class App extends React.Component{
           _this.loadPathTree();
         }
         else if (response.data.status==='noEnoughSpace'){
-          alert('可用空间不足');
+          myAlert('可用空间不足');
         }
         else{
-            alert('上传文件失败');
+            myAlert('上传文件失败');
         } 
     })
     .catch(function (error) {
@@ -85,7 +91,7 @@ class App extends React.Component{
   deleteFile(path){
     let token = Cookies.get("token");
     if (!token||token===""){
-      alert("token失效，重新登录");
+      myAlert("token失效，重新登录");
       return;
     }
     let _this = this;
@@ -105,11 +111,17 @@ class App extends React.Component{
           _this.loadPathTree();
         }
         else{
-            alert('删除文件失败');
+            myAlert('删除文件失败');
         } 
     })
     .catch(function (error) {
         console.log(error);
+    });
+  }
+  newDir(path){
+    this.setState({
+      rAlertBlockDisplay: 1,
+      newDirPath: path,
     });
   }
   loadPdf(path){
@@ -166,7 +178,7 @@ class App extends React.Component{
           _this.setState({pathTree: JSON.parse(response.data.data)});
         }
         else{
-          alert("获取pathtree失败,请尝试重新登录");
+          myAlert("获取pathtree失败,请尝试重新登录");
         }
       })
       .catch(function (error) {
@@ -177,6 +189,9 @@ class App extends React.Component{
       _this.setState({
         pathTree:{}});
     }
+  }
+  changeRAlertBlockDisplay(int01){
+    this.setState({rAlertBlockDisplay:int01});
   }
   render(){
     return (
@@ -190,13 +205,18 @@ class App extends React.Component{
           loadPdf={this.loadPdf} changeIndex={this.changeIndex} index={this.state.index}
           deletePdf={this.deletePdf} viewerPath={this.state.viewerPath}
           pathTree={this.state.pathTree} selectToolIndex={this.state.selectToolIndex} 
-          uploadFile={this.uploadFile} deleteFile={this.deleteFile}/>
+          uploadFile={this.uploadFile} deleteFile={this.deleteFile}
+          newDir={this.newDir}/>
         </div>
         <div id="Main2Grid">
           <RViewer viewerPath={this.state.viewerPath} index={this.state.index} 
           changeIndex={this.changeIndex} deletePdf={this.deletePdf}/>
         </div>
         <input type="file" id="UploadFileInput" onChange={this.handleChangeUploadFile}/>
+        <RAlertBlock changeRAlertBlockDisplay={this.changeRAlertBlockDisplay}
+        newDirPath={this.state.newDirPath} loadPathTree={this.loadPathTree} 
+        isDisplay={this.state.rAlertBlockDisplay}/>
+        <div id="RAlertInfo" isdisplay="false"></div>
       </div>
     );
   }

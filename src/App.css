@@ -37,3 +37,15 @@ body:fullscreen #Main0Grid {
   visibility: hidden;
 }
 
+.App > #RAlertInfo {
+  position: absolute;
+  width: 100vw;
+  height: 2vw;
+  bottom: 0;
+  background-color: rgb(197, 66, 66);
+  color: rgb(200, 200, 200);
+}
+
+.App > #RAlertInfo[isdisplay="false"] {
+  display: none;
+}
