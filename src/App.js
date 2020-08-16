@@ -178,8 +178,11 @@ class App extends React.Component{
           console.log(response.data.data);
           _this.setState({pathTree: JSON.parse(response.data.data)});
         }
-        else{
-          myAlert("获取pathtree失败,请尝试重新登录");
+        else if (response.data.status==="expired"){
+          myAlert("登录状态过期,请重新登录");
+        }
+        else {
+          myAlert("账号不存在");
         }
       })
       .catch(function (error) {
