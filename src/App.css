@@ -33,8 +33,8 @@ body:fullscreen #Main0Grid {
   overflow: hidden;
 }
 
-.App > #UpLoadFileInput {
-  visibility: hidden;
+.App > #UploadFileInput {
+  display: none;
 }
 
 .App > #RAlertInfo {

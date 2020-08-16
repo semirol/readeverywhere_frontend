@@ -6,6 +6,7 @@ import { RViewer } from './RViewer';
 import { RSelectTool } from './RSelectTool';
 import { RInfoTool } from './RInfoTool';
 import { RAlertBlock } from './RAlertBlock';
+import { RConfig } from './RConfig';
 
 
 import './App.css';
@@ -63,7 +64,7 @@ class App extends React.Component{
     }
     axios({
       method: 'post',
-      url: 'http://127.0.0.1:8080/uploadPdf',
+      url: 'http://'+RConfig.serverIp+':'+RConfig.serverPort+'/uploadPdf',
       data: formData,
       headers: {
           'token': token,
@@ -97,7 +98,7 @@ class App extends React.Component{
     let _this = this;
     axios({
       method: 'post',
-      url: 'http://127.0.0.1:8080/deletePdfOrDir',
+      url: 'http://'+RConfig.serverIp+':'+RConfig.serverPort+'/deletePdfOrDir',
       data: Qs.stringify({
         path,
       }),
@@ -166,7 +167,7 @@ class App extends React.Component{
     if (token!=''&&token){
       axios({
         method: 'post',
-        url: 'http://127.0.0.1:8080/tokenToPath',
+        url: 'http://'+RConfig.serverIp+':'+RConfig.serverPort+'/tokenToPath',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             'token':token,

@@ -1,6 +1,8 @@
 import React from 'react';
 import Cookies from 'js-cookie';
 
+import { RConfig } from './RConfig';
+
 import './RViewer.css';
 
 class RViewer extends React.Component{
@@ -32,11 +34,11 @@ class RViewer extends React.Component{
                 (item,index) => (
                     index==this.props.index?
                         <iframe key={'iframe'+item[0]+item[1]} src={'./pdfjs/web/viewer.html'+'?file=' 
-                        + encodeURIComponent("http://localhost:8080/getPdfStream?token="+token+"&path="+item[0])} 
+                        + encodeURIComponent("http://"+RConfig.serverIp+":"+RConfig.serverPort+"/getPdfStream?token="+token+"&path="+item[0])} 
                         scrolling='no' width='100%' height='100%'></iframe>
                     :
                         <iframe key={'iframe'+item[0]+item[1]} src={'./pdfjs/web/viewer.html'+'?file=' 
-                        + encodeURIComponent("http://localhost:8080/getPdfStream?token="+token+"&path="+item[0])} 
+                        + encodeURIComponent("http://"+RConfig.serverIp+":"+RConfig.serverPort+"/getPdfStream?token="+token+"&path="+item[0])} 
                         scrolling='no' width='100%' height='100%' style={{display:'none'}}></iframe>
                 )
             );

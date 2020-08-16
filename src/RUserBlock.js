@@ -3,6 +3,7 @@ import axios from 'axios';
 import Qs from 'qs';
 import Cookies from 'js-cookie';
 import { myAlert } from './RScripts';
+import { RConfig } from './RConfig';
 
 import './RUserBlock.css';
 
@@ -71,7 +72,7 @@ class RUserBlock extends React.Component{
         if (token!==''&&token){
             axios({
               method: 'post',
-              url: 'http://127.0.0.1:8080/getUserInfo',
+              url: 'http://'+RConfig.serverIp+':'+RConfig.serverPort+'/getUserInfo',
               headers: {
                   'Content-Type': 'application/x-www-form-urlencoded',
                   'token':token,
@@ -108,7 +109,7 @@ class RUserBlock extends React.Component{
         }
         axios({
             method: 'post',
-            url: 'http://127.0.0.1:8080/signUp',
+            url: 'http://'+RConfig.serverIp+':'+RConfig.serverPort+'/signUp',
             data: Qs.stringify({
                 email:_this.state.emailSignUp,
                 name:_this.state.nameSignUp,
@@ -141,7 +142,7 @@ class RUserBlock extends React.Component{
         const _this = this;
         axios({
             method: 'post',
-            url: 'http://127.0.0.1:8080/login',
+            url: 'http://'+RConfig.serverIp+':'+RConfig.serverPort+'/login',
             data: Qs.stringify({
                 email:_this.state.email,
                 password:_this.state.password,
@@ -181,7 +182,7 @@ class RUserBlock extends React.Component{
         else{
             axios({
                 method: 'post',
-                url: 'http://127.0.0.1:8080/logout',
+                url: 'http://'+RConfig.serverIp+':'+RConfig.serverPort+'/logout',
                 data: '',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',

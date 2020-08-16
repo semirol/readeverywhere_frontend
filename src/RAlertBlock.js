@@ -4,6 +4,8 @@ import Cookies from 'js-cookie';
 import Qs from 'qs';
 
 import { myAlert } from './RScripts';
+import { RConfig } from './RConfig';
+
 
 import './RAlertBlock.css';
 
@@ -25,7 +27,7 @@ class RAlertBlock extends React.Component{
         if (token!==''&&token&&this.state.inputValue!==""){
             axios({
               method: 'post',
-              url: 'http://127.0.0.1:8080/newDir',
+              url: 'http://'+RConfig.serverIp+':'+RConfig.serverPort+'/newDir',
               data: Qs.stringify({
                 path: this.props.newDirPath,
                 dirName: this.state.inputValue,
